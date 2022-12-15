@@ -34,6 +34,9 @@ public class ExperienciaController {
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
+
+
+
     @PostMapping("/create")
     public ResponseEntity<Experiencia> create(@RequestBody ExperienciaDTO experienciaDTO){
         if(StringUtils.isBlank(experienciaDTO.getNombreExp())){
@@ -49,6 +52,9 @@ public class ExperienciaController {
 
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }
+
+
+
 
 
     @PutMapping("/update/{id}")
@@ -77,6 +83,10 @@ public class ExperienciaController {
         return new ResponseEntity(new Mensaje("Experiencia actualizado"), HttpStatus.OK);
     }
 
+
+
+
+    
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id){
         // valida si existe el id
@@ -87,7 +97,11 @@ public class ExperienciaController {
 
         return new ResponseEntity(new Mensaje("Experiencia eliminada"), HttpStatus.OK);
     }
-    
+      
+
+
+
+
     @GetMapping("/detail/{id}")
     public ResponseEntity<Experiencia> getById(@PathVariable("id") int id){
         if(!experienciaService.existsById(id))
