@@ -56,7 +56,10 @@ public class MainSecurity{
         // We don't need CSRF for this example
         http.cors().and().csrf().disable()
                 // don't authenticate this particular request
-                .authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers("/**").permitAll()
+                
+                
                 // all other requests need to be authenticated
                 .anyRequest().authenticated()
                 .and()
