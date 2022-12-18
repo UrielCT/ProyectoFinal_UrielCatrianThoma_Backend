@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,25 +14,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portafolio.PortafolioWeb.Dto.PersonaDTO;
-import com.portafolio.PortafolioWeb.Entity.Persona;
+import com.portafolio.PortafolioWeb.Dto.ProyectoDTO;
+import com.portafolio.PortafolioWeb.Entity.Proyecto;
 import com.portafolio.PortafolioWeb.Security.Controller.Mensaje;
-import com.portafolio.PortafolioWeb.Service.PersonaService;
+import com.portafolio.PortafolioWeb.Service.ProyectoService;
+
 
 
 @RestController
-@RequestMapping("personas")
+@RequestMapping("proyecto")
 @CrossOrigin(origins = "http://localhost:4200")
-public class PersonaController {
+public class ProyectoController {
     @Autowired
-    PersonaService personaService;
+    ProyectoService proyectoService;
     
     @GetMapping("/lista")
-    public ResponseEntity<List<Persona>> list(){
-        List<Persona> list = personaService.list();
+    public ResponseEntity<List<Proyecto>> list(){
+        List<Proyecto> list = proyectoService.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
@@ -41,49 +40,56 @@ public class PersonaController {
 
 
 
-    /*@PostMapping("/create")
-    public ResponseEntity<Persona> create(@RequestBody PersonaDTO personaDTO){
-        if(StringUtils.isBlank(personaDTO.getNombre())){
+    @PostMapping("/create")
+    public ResponseEntity<Proyecto> create(@RequestBody ProyectoDTO proyectoDTO){
+        if(StringUtils.isBlank(proyectoDTO.getNombre())){
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
 
-        if(personaService.existsByNombre(personaDTO.getNombre())){
+        if(proyectoService.existsByNombre(proyectoDTO.getNombre())){
             return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         }
         
-        Persona persona = new Persona(
-            personaDTO.getNombre(), personaDTO.getDescripcion());
-            personaService.save(persona);
+        Proyecto proyecto = new Proyecto(
+            proyectoDTO.getNombre(), 
+            proyectoDTO.getDescripcion(), 
+            proyectoDTO.getFechaReali(), 
+            proyectoDTO.getLink(), 
+            proyectoDTO.getImagen());
+            
+        proyectoService.save(proyecto);
+
 
         return new ResponseEntity(new Mensaje("Educacion creada"), HttpStatus.OK);
                 
-    }*/
+    }
 
 
 
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody PersonaDTO personaDTO){
-        if(!personaService.existsById(id)){
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody ProyectoDTO proyectoDTO){
+        if(!proyectoService.existsById(id)){
             return new ResponseEntity(new Mensaje("El id not existe"), HttpStatus.BAD_REQUEST);
         }
 
-        if(personaService.existsByNombre(personaDTO.getNombre()) && personaService.getByNombre(personaDTO.getNombre()).get().getId() != id){
+        if(proyectoService.existsByNombre(proyectoDTO.getNombre()) && proyectoService.getByNmbre(proyectoDTO.getNombre()).get().getId() != id){
             return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         }
 
-        if(StringUtils.isBlank(personaDTO.getNombre())){
+        if(StringUtils.isBlank(proyectoDTO.getNombre())){
             return new ResponseEntity(new Mensaje("El campo no puede estar vacio"), HttpStatus.BAD_REQUEST);
         }
         
-        Persona persona = personaService.getOne(id).get();
-        persona.setNombre(personaDTO.getNombre());
-        persona.setApellido(personaDTO.getApellido());
-        persona.setDescripcion(personaDTO.getDescripcion());
-        persona.setImg(personaDTO.getImg());
+        Proyecto proyecto = proyectoService.getOne(id).get();
+        proyecto.setNombre(proyectoDTO.getNombre());
+        proyecto.setDescripcion(proyectoDTO.getDescripcion());
+        proyecto.setFechaReali(proyectoDTO.getFechaReali());
+        proyecto.setLink(proyectoDTO.getLink());
+        proyecto.setImagen(proyectoDTO.getImagen());
         
-        personaService.save(persona);
+        proyectoService.save(proyecto);
         
         return new ResponseEntity(new Mensaje("Educacion actualizada"), HttpStatus.OK);
     }
@@ -92,28 +98,30 @@ public class PersonaController {
 
 
 
-    /*@DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id){
-        if(!personaService.existsById(id)){
+        if(!proyectoService.existsById(id)){
             return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.BAD_REQUEST);
         }
-        personaService.delete(id);
+        proyectoService.delete(id);
 
         return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
-    }*/
+    }
     
 
 
 
     
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Persona> getById(@PathVariable("id")int id){
-        if(!personaService.existsById(id)){
+    public ResponseEntity<Proyecto> getById(@PathVariable("id")int id){
+        if(!proyectoService.existsById(id)){
             return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.NOT_FOUND);
         }
         
-        Persona educacion = personaService.getOne(id).get();
-        return new ResponseEntity(educacion, HttpStatus.OK);
+        Proyecto proyecto = proyectoService.getOne(id).get();
+        return new ResponseEntity(proyecto, HttpStatus.OK);
     }
+
+
 
 }
