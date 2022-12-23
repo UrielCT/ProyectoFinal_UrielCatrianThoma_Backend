@@ -24,14 +24,12 @@ public class Persona {
     @Size(min = 1, max = 50, message = "la longitud no es correcta")
     private String apellido;
 
-
     @NotNull
     private String descripcion; 
    
     private String img;
 
-    public Persona() {
-    }
+    public Persona() {}
 
     public Persona(@NotNull @Size(min = 1, max = 50, message = "la longitud no es correcta") String nombre,
             @NotNull @Size(min = 1, max = 50, message = "la longitud no es correcta") String apellido) {

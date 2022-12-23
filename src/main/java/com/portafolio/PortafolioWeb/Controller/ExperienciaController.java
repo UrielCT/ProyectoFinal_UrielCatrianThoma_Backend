@@ -39,15 +39,15 @@ public class ExperienciaController {
 
     @PostMapping("/create")
     public ResponseEntity<Experiencia> create(@RequestBody ExperienciaDTO experienciaDTO){
-        if(StringUtils.isBlank(experienciaDTO.getNombreExp())){
+        if(StringUtils.isBlank(experienciaDTO.getNombre())){
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
 
-        if(experienciaService.existsByNombreExp(experienciaDTO.getNombreExp())){
+        if(experienciaService.existsByNombre(experienciaDTO.getNombre())){
             return new ResponseEntity(new Mensaje("La experiencia ya existe"), HttpStatus.BAD_REQUEST);
         }
 
-        Experiencia experiencia = new Experiencia(experienciaDTO.getNombreExp(), experienciaDTO.getDescripcionExp());
+        Experiencia experiencia = new Experiencia(experienciaDTO.getNombre(), experienciaDTO.getDescripcion(),experienciaDTO.getPeriodo(),experienciaDTO.getImg());
         experienciaService.save(experiencia);
 
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
@@ -65,18 +65,18 @@ public class ExperienciaController {
         }
 
         // compara nombre de experiencias
-        if(experienciaService.existsByNombreExp(experienciaDTO.getNombreExp()) && experienciaService.getByNombreExp(experienciaDTO.getNombreExp()).get().getId() != id){
+        if(experienciaService.existsByNombre(experienciaDTO.getNombre()) && experienciaService.getByNombre(experienciaDTO.getNombre()).get().getId() != id){
             return new ResponseEntity(new Mensaje("La experiencia ya existe"), HttpStatus.BAD_REQUEST);
         }
 
         // no puede estar vacio
-        if(StringUtils.isBlank(experienciaDTO.getNombreExp())){
+        if(StringUtils.isBlank(experienciaDTO.getNombre())){
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
 
         Experiencia experiencia = experienciaService.getOne(id).get();
-        experiencia.setNombreExp(experienciaDTO.getNombreExp());
-        experiencia.setDescripcionExp(experienciaDTO.getDescripcionExp());
+        experiencia.setNombre(experienciaDTO.getNombre());
+        experiencia.setDescripcion(experienciaDTO.getDescripcion());
 
         experienciaService.save(experiencia);
 

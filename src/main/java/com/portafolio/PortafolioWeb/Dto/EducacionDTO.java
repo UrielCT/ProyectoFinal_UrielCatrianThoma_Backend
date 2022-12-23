@@ -1,34 +1,29 @@
 package com.portafolio.PortafolioWeb.Dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class EducacionDTO {
     @NotBlank
-    private String nombreE;
+    private String nombre;
     @NotBlank
-    private String descripcionE;
+    private String descripcion;
+    @NotBlank
+    private String periodo; 
+    @NotBlank
+    private String img;
 
     public EducacionDTO() {
     }
 
-    public EducacionDTO(String nombreE, String descripcionE) {
-        this.nombreE = nombreE;
-        this.descripcionE = descripcionE;
+    public EducacionDTO(String nombre, String descripcion, String periodo, String img) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.periodo = periodo;
+        this.img = img;
     }
 
-    public String getNombreE() {
-        return nombreE;
-    }
-
-    public void setNombreE(String nombreE) {
-        this.nombreE = nombreE;
-    }
-
-    public String getDescripcionE() {
-        return descripcionE;
-    }
-
-    public void setDescripcionE(String descripcionE) {
-        this.descripcionE = descripcionE;
-    }
+    
 }

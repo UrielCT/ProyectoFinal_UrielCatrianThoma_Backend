@@ -83,9 +83,25 @@
 			<version>3.9</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>com.yugabyte</groupId>
+			<artifactId>ysql</artifactId>
+			<version>42.2.7-yb-2</version>
+		</dependency>
+
+
+		<dependency>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-dependency-plugin</artifactId>
+    		<version>3.4.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
+		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

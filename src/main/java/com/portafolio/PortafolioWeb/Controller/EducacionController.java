@@ -40,16 +40,19 @@ public class EducacionController {
 
     @PostMapping("/create")
     public ResponseEntity<Educacion> create(@RequestBody EducacionDTO educacionDTO){
-        if(StringUtils.isBlank(educacionDTO.getNombreE())){
+        if(StringUtils.isBlank(educacionDTO.getNombre())){
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
 
-        if(educacionService.existsByNombreE(educacionDTO.getNombreE())){
+        if(educacionService.existsByNombre(educacionDTO.getNombre())){
             return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         }
         
         Educacion educacion = new Educacion(
-            educacionDTO.getNombreE(), educacionDTO.getDescripcionE());
+            educacionDTO.getNombre(),
+            educacionDTO.getDescripcion(),
+            educacionDTO.getPeriodo(),
+            educacionDTO.getImg());
         educacionService.save(educacion);
 
         return new ResponseEntity(new Mensaje("Educacion creada"), HttpStatus.OK);
@@ -66,17 +69,17 @@ public class EducacionController {
             return new ResponseEntity(new Mensaje("El id not existe"), HttpStatus.BAD_REQUEST);
         }
 
-        if(educacionService.existsByNombreE(educacionDTO.getNombreE()) && educacionService.getByNmbreE(educacionDTO.getNombreE()).get().getId() != id){
+        if(educacionService.existsByNombre(educacionDTO.getNombre()) && educacionService.getByNmbre(educacionDTO.getNombre()).get().getId() != id){
             return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         }
 
-        if(StringUtils.isBlank(educacionDTO.getNombreE())){
+        if(StringUtils.isBlank(educacionDTO.getNombre())){
             return new ResponseEntity(new Mensaje("El campo no puede estar vacio"), HttpStatus.BAD_REQUEST);
         }
         
         Educacion educacion = educacionService.getOne(id).get();
-        educacion.setNombreE(educacionDTO.getNombreE());
-        educacion.setDescripcionE(educacionDTO.getDescripcionE());
+        educacion.setNombre(educacionDTO.getNombre());
+        educacion.setDescripcion(educacionDTO.getDescripcion());
         
         educacionService.save(educacion);
         

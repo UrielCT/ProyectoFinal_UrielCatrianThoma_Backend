@@ -4,45 +4,40 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 @Entity
 public class Educacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nombreE;
-    private String descripcionE;
 
-    public Educacion() {
-    }
+    @NotNull
+    @Size(min = 1, max = 50, message = "la longitud no es correcta")
+    private String nombre;
 
-    public Educacion(String nombreE, String descripcionE) {
-        this.nombreE = nombreE;
-        this.descripcionE = descripcionE;
-    }
+    @NotNull
+    @Size(min = 1, max = 250, message = "la longitud no es correcta")
+    private String descripcion;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @NotNull
+    @Size(min = 1, max = 50, message = "la longitud no es correcta")
+    private String periodo; 
+   
+    private String img;
 
-    public String getNombreE() {
-        return nombreE;
-    }
+    public Educacion() {}
 
-    public void setNombreE(String nombreE) {
-        this.nombreE = nombreE;
-    }
-
-    public String getDescripcionE() {
-        return descripcionE;
-    }
-
-    public void setDescripcionE(String descripcionE) {
-        this.descripcionE = descripcionE;
+    public Educacion(String nombre, String descripcion, String periodo,String img) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.periodo = periodo;
+        this.img = img;
     }
     
     

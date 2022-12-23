@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface ExperienciaRepository extends JpaRepository<Experiencia,Integer>{
-    public Optional<Experiencia> findByNombreExp(String nombreExp);
-    public boolean existsByNombreExp(String nombreExp);
+    public Optional<Experiencia> findByNombre(String nombre);
+    public boolean existsByNombre(String nombre);
 }

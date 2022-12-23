@@ -1,7 +1,9 @@
 package com.portafolio.PortafolioWeb.Dto;
 
 import jakarta.validation.constraints.NotBlank;
-
+import lombok.Getter;
+import lombok.Setter;
+@Getter @Setter
 public class PersonaDTO {
     @NotBlank
     private String nombre;
@@ -13,8 +15,7 @@ public class PersonaDTO {
     private String img;
 
 
-    public PersonaDTO() {
-    }
+    public PersonaDTO() {}
 
 
     public PersonaDTO(@NotBlank String nombre, @NotBlank String apellido, @NotBlank String descripcion,
@@ -26,44 +27,7 @@ public class PersonaDTO {
     }
 
 
-    public String getNombre() {
-        return nombre;
-    }
-
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-
-    public String getApellido() {
-        return apellido;
-    }
-
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-
-    public String getImg() {
-        return img;
-    }
-
-
-    public void setImg(String img) {
-        this.img = img;
-    }
+    
 
     
 }

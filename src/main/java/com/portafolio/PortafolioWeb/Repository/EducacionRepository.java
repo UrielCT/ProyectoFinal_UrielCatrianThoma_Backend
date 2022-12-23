@@ -9,6 +9,6 @@ import com.portafolio.PortafolioWeb.Entity.Educacion;
 
 @Repository
 public interface EducacionRepository extends JpaRepository<Educacion, Integer>{
-    public Optional<Educacion> findByNombreE(String nombreE);
-    public boolean existsByNombreE(String nombreE);
+    public Optional<Educacion> findByNombre(String nombre);
+    public boolean existsByNombre(String nombre);
 }
